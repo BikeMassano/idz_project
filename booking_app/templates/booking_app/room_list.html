@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Доступные комнаты</h1>
+
+<div class="rooms-list">
+    {% for room in rooms %}
+        <div class="room-card">
+            <h4>{{ room.title }}</h4>
+            <p>{{ room.description }}</p>
+            <p>Вместимость: {{ room.capacity }} мест</p>
+            <p>Цена за ночь: {{ room.price_per_night }} ₽</p>
+            <a href="{% url 'booking_app:book_room' %}">Забронировать</a>
+        </div>
+    {% empty %}
+        <p>Нет доступных комнат</p>
+    {% endfor %}
+</div>
+{% endblock %}

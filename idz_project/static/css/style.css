@@ -1,0 +1,282 @@
+/* === Общий стиль страницы === */
+body {
+    font-family: "Segoe UI", Roboto, Arial, sans-serif;
+    background-color: #f7f7f9;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+/* === Навигация === */
+nav {
+    background-color: #003366;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 30px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 10px;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+nav a:hover {
+    color: #cce6ff;
+}
+
+.brand {
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+}
+
+.logout-form {
+    display: inline;
+}
+
+.logout-form button {
+    background-color: #cc0000;
+    border: none;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background 0.3s ease;
+}
+
+.logout-form button:hover {
+    background-color: #a30000;
+}
+
+/* === Контент === */
+main {
+    max-width: 1000px;
+    margin: 30px auto;
+    background-color: white;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* === Футер === */
+footer {
+    text-align: center;
+    color: #666;
+    padding: 20px;
+    font-size: 14px;
+    border-top: 1px solid #ddd;
+    background: #f1f1f1;
+}
+
+/* === Адаптивность === */
+@media (max-width: 600px) {
+    nav {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .nav-right {
+        margin-top: 10px;
+    }
+}
+
+/* === Страница выхода === */
+.logout-container {
+    max-width: 400px;
+    margin: 80px auto;
+    background: #fff;
+    padding: 40px 30px;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.logout-container h2 {
+    color: #003366;
+    margin-bottom: 15px;
+}
+
+.logout-container p {
+    color: #555;
+    margin-bottom: 25px;
+}
+
+.btn-primary {
+    display: inline-block;
+    background-color: #003366;
+    color: white;
+    text-decoration: none;
+    padding: 10px 18px;
+    border-radius: 6px;
+    font-weight: 500;
+    transition: background 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #00224d;
+}
+
+/* === Профиль пользователя === */
+.profile-container {
+    max-width: 900px;
+    margin: 40px auto;
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.profile-container h2 {
+    text-align: center;
+    color: #003366;
+    margin-bottom: 20px;
+}
+
+.user-info {
+    background: #f1f5ff;
+    padding: 15px 20px;
+    border-radius: 6px;
+    margin-bottom: 25px;
+}
+
+.user-info p {
+    margin: 8px 0;
+    color: #333;
+}
+
+.bookings-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.booking-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    background: #fafafa;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.booking-card h4 {
+    margin-top: 0;
+    color: #003366;
+}
+
+.booking-card p {
+    margin: 6px 0;
+    font-size: 15px;
+}
+
+.services-details summary {
+    font-weight: 500;
+    color: #003366;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.services-details ul {
+    margin-top: 5px;
+    margin-left: 15px;
+    padding-left: 10px;
+    list-style-type: square;
+}
+
+.no-services {
+    color: #777;
+    font-style: italic;
+    margin-top: 5px;
+}
+
+/* === Стили для карточек комнат === */
+.rooms-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* расстояние между карточками */
+}
+
+.room-card {
+    background-color: #f1f5ff; /* светлый фон */
+    border: 1px solid #cce0ff; /* светлая рамка */
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1); /* лёгкая тень */
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.room-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.room-card h4 {
+    margin-top: 0;
+    color: #003366;
+}
+
+.room-card p {
+    margin: 6px 0;
+}
+
+.room-card a {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 6px 12px;
+    background-color: #003366;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 500;
+    transition: background 0.3s ease;
+}
+
+.room-card a:hover {
+    background-color: #00224d;
+}
+
+/* Кнопка добавления нового номера */
+.add-room-btn {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 18px;
+    background-color: #28a745;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 500;
+    transition: background 0.3s ease;
+}
+
+.add-room-btn:hover {
+    background-color: #1e7e34;
+}
+
+.room-actions {
+    margin-top: 10px;
+}
+
+.btn-delete {
+    display: inline-block;       /* как ссылка/кнопка */
+    padding: 8px 14px;           /* внутренние отступы */
+    background-color: #cc0000;   /* красный фон */
+    color: white;                /* текст белый */
+    text-decoration: none;       /* убрать подчеркивание */
+    border: none;                /* убрать стандартную рамку */
+    border-radius: 6px;          /* скругление */
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    margin-left: 10px;
+}
+
+.btn-delete:hover {
+    background-color: #a30000;
+}

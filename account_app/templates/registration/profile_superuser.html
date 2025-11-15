@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}Профиль администратора — HotelBooking{% endblock %}
+
+{% block content %}
+<div class="profile-container">
+    <h2>Профиль администратора</h2>
+
+    <div class="user-info">
+        <p><strong>Имя пользователя:</strong> {{ user.username }}</p>
+        <p><strong>Email:</strong> {{ user.email|default:"—" }}</p>
+        <p><strong>Подтвержден суперпользователем:</strong> {{ user.is_approved|yesno:"Да,Нет" }}</p>
+    </div>
+
+    <hr>
+
+    <h3>Управление номерами</h3>
+    {% if rooms %}
+        <div class="rooms-list">
+            {% for room in rooms %}
+                <div class="room-card">
+                    <div class="room-header">
+                        <h4>{{ room.title }}</h4>
+                        <span class="room-status">{{ room.get_status_display }}</span>
+                    </div>
+                    <p><strong>Описание:</strong> {{ room.description }}</p>
+                    <p><strong>Вместимость:</strong> {{ room.capacity }}</p>
+                    <p><strong>Цена за ночь:</strong> {{ room.price_per_night }} ₽</p>
+                    <a href="{% url 'booking_app:room_edit' room.id %}" class="btn-edit">Редактировать</a>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>Пока нет добавленных комнат.</p>
+    {% endif %}
+
+    <a href="{% url 'booking_app:room_add' %}" class="add-room-btn">Добавить новый номер</a>
+</div>
+{% endblock %}

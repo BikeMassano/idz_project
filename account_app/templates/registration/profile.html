@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}Профиль — HotelBooking{% endblock %}
+
+{% block content %}
+<div class="profile-container">
+    <h2>Профиль пользователя</h2>
+
+    <div class="user-info">
+        <p><strong>Имя пользователя:</strong> {{ user.username }}</p>
+        <p><strong>Роль:</strong> {{ user.get_role_display }}</p>
+        <p><strong>Email:</strong> {{ user.email|default:"—" }}</p>
+    </div>
+
+    <hr>
+
+    <h3>Мои бронирования</h3>
+    {% if user.bookings.all %}
+        <div class="bookings-list">
+            {% for booking in user.bookings.all %}
+                <div class="booking-card">
+                    <h4>{{ booking.room.title }}</h4>
+                    <p><strong>Даты:</strong> {{ booking.check_in }} — {{ booking.check_out }}</p>
+                    <p><strong>Количество гостей:</strong> {{ booking.guests_count }}</p>
+                    <p><strong>Статус:</strong> {{ booking.get_status_display }}</p>
+                    <p><strong>Цена за ночь:</strong> {{ booking.room.price_per_night }} ₽</p>
+
+                    {% if booking.service_orders.all %}
+                        <details class="services-details">
+                            <summary>Заказанные услуги</summary>
+                            <ul>
+                                {% for order in booking.service_orders.all %}
+                                    <li>{{ order.service.name }} ×{{ order.quantity }} — {{ order.service.price }} ₽</li>
+                                {% endfor %}
+                            </ul>
+                        </details>
+                    {% else %}
+                        <p class="no-services">Дополнительные услуги не заказаны.</p>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>У вас пока нет броней.</p>
+    {% endif %}
+</div>
+{% endblock %}

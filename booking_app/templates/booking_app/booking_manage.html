@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}Управление бронями — HotelBooking{% endblock %}
+
+{% block content %}
+<div class="profile-container">
+    <h2>Управление бронями</h2>
+
+    {% if bookings %}
+        <div class="rooms-list">
+            {% for booking in bookings %}
+                <div class="room-card">
+                    <div class="room-header">
+                        <h4>Бронь #{{ booking.id }} — {{ booking.room.title }}</h4>
+                    </div>
+
+                    <p><strong>Гость:</strong> {{ booking.guest.username }}</p>
+                    <p><strong>Период:</strong> {{ booking.check_in }} — {{ booking.check_out }}</p>
+                    <p><strong>Количество гостей:</strong> {{ booking.guests_count }}</p>
+                    <p><strong>Статус:</strong> {{ booking.get_status_display }}</p>
+
+                    <div class="room-actions">
+                        <a href="{% url 'booking_app:booking_edit' booking.id %}" class="btn-edit">Редактировать</a>
+                        {% if booking.status != 'confirmed' %}
+                            <form action="{% url 'booking_app:booking_confirm' booking.id %}" method="post" style="display:inline;">
+                                {% csrf_token %}
+                                <button type="submit" class="btn-edit">Подтвердить</button>
+                            </form>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>Пока нет созданных броней.</p>
+    {% endif %}
+
+</div>
+{% endblock %}

@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block title %}{{ title }} — HotelBooking{% endblock %}
+
+{% block content %}
+<div class="profile-container">
+    <h2>{{ title }}</h2>
+
+    <form method="post">
+        {% csrf_token %}
+
+        <!-- Общие ошибки формы -->
+        {% if form.non_field_errors %}
+            <div class="form-group form-error">
+                {% for error in form.non_field_errors %}
+                    <p>{{ error }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <div class="form-group">
+            {{ form.room.label_tag }}
+            {{ form.room }}
+            {% if form.room.errors %}
+                <div class="form-error">{{ form.room.errors }}</div>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            {{ form.check_in.label_tag }}
+            {{ form.check_in }}
+            {% if form.check_in.errors %}
+                <div class="form-error">{{ form.check_in.errors }}</div>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            {{ form.check_out.label_tag }}
+            {{ form.check_out }}
+            {% if form.check_out.errors %}
+                <div class="form-error">{{ form.check_out.errors }}</div>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            {{ form.guests_count.label_tag }}
+            {{ form.guests_count }}
+            {% if form.guests_count.errors %}
+                <div class="form-error">{{ form.guests_count.errors }}</div>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            {{ form.status.label_tag }}
+            {{ form.status }}
+            {% if form.status.errors %}
+                <div class="form-error">{{ form.status.errors }}</div>
+            {% endif %}
+        </div>
+
+        <button type="submit" class="btn-edit">Сохранить</button>
+    </form>
+
+    <a href="{% url 'booking_app:booking_manage' %}" class="add-room-btn">Вернуться к списку броней</a>
+</div>
+{% endblock %}

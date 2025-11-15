@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}Управление комнатами — HotelBooking{% endblock %}
+
+{% block content %}
+<div class="profile-container">
+    <h2>Управление комнатами</h2>
+
+    {% if rooms %}
+        <div class="rooms-list">
+            {% for room in rooms %}
+                <div class="room-card">
+                    <div class="room-header">
+                        <h4>{{ room.title }}</h4>
+                        <span class="room-status">{{ room.get_status_display }}</span>
+                    </div>
+                    <p><strong>Описание:</strong> {{ room.description }}</p>
+                    <p><strong>Вместимость:</strong> {{ room.capacity }}</p>
+                    <p><strong>Цена за ночь:</strong> {{ room.price_per_night }} ₽</p>
+                    <div class="room-actions">
+                        <a href="{% url 'booking_app:room_edit' room.id %}" class="btn-edit">Редактировать</a>
+                        <form action="{% url 'booking_app:room_delete' room.id %}" method="post" style="display:inline;">
+                                {% csrf_token %}
+                                <button type="submit" class="btn-delete">Удалить</button>
+                            </form>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>Пока нет добавленных комнат.</p>
+    {% endif %}
+
+    <a href="{% url 'booking_app:room_add' %}" class="add-room-btn">Добавить новый номер</a>
+</div>
+{% endblock %}
