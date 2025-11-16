@@ -17,12 +17,14 @@
                 {% endfor %}
             </div>
         {% endif %}
-
+        
         <div class="form-group">
             {{ form.room.label_tag }}
-            {{ form.room }}
-            {% if form.room.errors %}
-                <div class="form-error">{{ form.room.errors }}</div>
+            {% if room %}
+                <input type="text" value="{{ room.title }}" disabled>
+                {{ form.room.as_hidden }}
+            {% else %}
+                {{ form.room }}
             {% endif %}
         </div>
 

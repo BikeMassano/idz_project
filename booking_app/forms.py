@@ -1,14 +1,6 @@
 from django import forms
-from .models import Booking, ServiceOrder, Room
-from django.contrib.auth import get_user_model
+from .models import Booking, ServiceOrder, Room, Service, Review
 from account_app.models import User
-
-class UserRegistrationForm(forms.ModelForm):
-    password = forms.CharField(widget=forms.PasswordInput)
-
-    class Meta:
-        model = User
-        fields = ['username', 'email', 'password', 'role']
 
 class BookingForm(forms.ModelForm):
     class Meta:
@@ -19,19 +11,18 @@ class BookingForm(forms.ModelForm):
             'check_out': forms.DateInput(attrs={'type': 'date'}),
         }
 
-class ServiceOrderForm(forms.ModelForm):
-    class Meta:
-        model = ServiceOrder
-        fields = ['service', 'quantity']
-
 class ProfileEditForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ['username', 'email']
 
-class FeedbackForm(forms.Form):
-    subject = forms.CharField(max_length=255)
-    message = forms.CharField(widget=forms.Textarea)
+class ReviewForm(forms.ModelForm):
+    class Meta:
+        model = Review
+        fields = ('comment',)
+        widgets = {
+            'comment': forms.Textarea(attrs={'rows': 4, 'placeholder': 'Ваш отзыв...'}),
+        }
 
 class RoomForm(forms.ModelForm):
     class Meta:
@@ -45,4 +36,23 @@ class BookingAdminForm(forms.ModelForm):
         widgets = {
             'check_in': forms.DateInput(attrs={'type': 'date'}),
             'check_out': forms.DateInput(attrs={'type': 'date'}),
+        }
+
+class ServiceOrderForm(forms.ModelForm):
+    class Meta:
+        model = ServiceOrder
+        fields = ['service', 'quantity']
+        widgets = {
+            'quantity': forms.NumberInput(attrs={'min': 1}),
+        }
+
+        
+class ServiceForm(forms.ModelForm):
+    class Meta:
+        model = Service
+        fields = ['name', 'description', 'price']
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control'}),
+            'description': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
+            'price': forms.NumberInput(attrs={'class': 'form-control', 'step': '0.01'}),
         }

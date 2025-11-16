@@ -14,14 +14,14 @@
         </div>
         <div class="nav-right">
             {% if user.is_authenticated %}
-                Привет, <a href="{% url 'profile' %}">{{ user.username }}</a> |
-                <form method="post" action="{% url 'logout' %}" class="logout-form">
+                Привет, <a href="{% url 'account_app:profile' %}">{{ user.username }}</a> |
+                <form method="post" action="{% url 'account_app:logout' %}" class="logout-form">
                     {% csrf_token %}
                     <button type="submit">Выйти</button>
                 </form>
             {% else %}
-                <a href="{% url 'login' %}">Вход</a> |
-                <a href="{% url 'signup' %}">Регистрация</a>
+                <a href="{% url 'account_app:login' %}">Вход</a> |
+                <a href="{% url 'account_app:signup' %}">Регистрация</a>
             {% endif %}
         </div>
     </nav>

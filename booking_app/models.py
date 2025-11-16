@@ -40,8 +40,9 @@ class Booking(models.Model):
             raise ValidationError("Дата выезда должна быть позже даты заезда.")
         
         # Кол-во гостей <= вместимость
-        if self.guests_count > self.room.capacity:
-            raise ValidationError("Слишком много гостей для этой комнаты.")
+        if self.guests_count is not None and self.room.capacity is not None:
+            if self.guests_count > self.room.capacity:
+                raise ValidationError("Слишком много гостей для выбранной комнаты")
 
         # Дата заезда ≥ сегодня
         if self.check_in < date.today():
@@ -79,3 +80,23 @@ class ServiceOrder(models.Model):
 
     def __str__(self):
         return f"{self.service.name} ×{self.quantity} (бронь #{self.booking.id})"
+    
+class Review(models.Model):
+    booking = models.OneToOneField('Booking', on_delete=models.CASCADE, related_name='review')
+    guest = models.ForeignKey(User, on_delete=models.CASCADE)
+    comment = models.TextField(blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Отзыв к брони #{self.booking.id} — {self.comment}"
+    
+
+def update_room_status(room):
+    """Обновляем статус комнаты в зависимости от активных броней."""
+    active_booking = room.booking_set.filter(
+        status='confirmed',
+        check_in__lte=date.today(),
+        check_out__gt=date.today()
+    ).exists()
+    room.status = 'occupied' if active_booking else 'available'
+    room.save()

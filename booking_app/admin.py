@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Room, Booking, Service, ServiceOrder
+from .models import Room, Booking, Service, ServiceOrder, Review
 
 @admin.register(Room)
 class RoomAdmin(admin.ModelAdmin):
@@ -21,3 +21,10 @@ class ServiceAdmin(admin.ModelAdmin):
 @admin.register(ServiceOrder)
 class ServiceOrderAdmin(admin.ModelAdmin):
     list_display = ('booking', 'service', 'quantity', 'created_at')
+
+
+@admin.register(Review)
+class ReviewAdmin(admin.ModelAdmin):
+    list_display = ('booking', 'guest', 'created_at')
+    search_fields = ('guest__username', 'booking__room__title', 'comment')
+    readonly_fields = ('created_at',)

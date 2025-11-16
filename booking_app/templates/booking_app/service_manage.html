@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}Управление услугами — HotelBooking{% endblock %}
+
+{% block content %}
+<div class="profile-container">
+    <h2>Управление услугами</h2>
+
+    {% if services %}
+        <div class="rooms-list">
+            {% for service in services %}
+                <div class="room-card">
+                    <div class="room-header">
+                        <h4>{{ service.name }}</h4>
+                    </div>
+                    <p><strong>Описание:</strong> {{ service.description|default:"Нет описания" }}</p>
+                    <p><strong>Цена:</strong> {{ service.price }} ₽</p>
+                    <div class="room-actions">
+                        <a href="{% url 'booking_app:service_edit' service.id %}" class="btn-edit">Редактировать</a>
+                        <form action="{% url 'booking_app:service_delete' service.id %}" method="post" style="display:inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="btn-delete">Удалить</button>
+                        </form>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>Пока нет добавленных услуг.</p>
+    {% endif %}
+
+    <a href="{% url 'booking_app:service_add' %}" class="add-room-btn">Добавить новую услугу</a>
+</div>
+{% endblock %}

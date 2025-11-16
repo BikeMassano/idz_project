@@ -6,6 +6,17 @@
 <h2>Бронирование: {{ room.title }}</h2>
 <form method="post">
     {% csrf_token %}
+
+    {% if room %}
+        {{ form.room.as_hidden }}
+        <p>Комната: <strong>{{ room.title }}</strong></p>
+    {% else %}
+        <div class="form-group">
+            {{ form.room.label_tag }}
+            {{ form.room }}
+        </div>
+    {% endif %}
+
     {{ form.as_p }}
     <button type="submit">Забронировать</button>
 </form>

@@ -263,20 +263,51 @@ footer {
     margin-top: 10px;
 }
 
+.btn-edit,
+.btn-cancel,
 .btn-delete {
-    display: inline-block;       /* как ссылка/кнопка */
-    padding: 8px 14px;           /* внутренние отступы */
-    background-color: #cc0000;   /* красный фон */
-    color: white;                /* текст белый */
-    text-decoration: none;       /* убрать подчеркивание */
-    border: none;                /* убрать стандартную рамку */
-    border-radius: 6px;          /* скругление */
+    display: inline-block;
+    padding: 8px 14px;
+    border: none;
+    border-radius: 6px;
     font-weight: 500;
     cursor: pointer;
+    text-decoration: none;
     transition: background 0.3s ease;
-    margin-left: 10px;
+
+    /* Сброс дефолтного стиля браузера */
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-clip: padding-box;
+    box-sizing: border-box;
+
+    /* Убираем внутренние отступы и margin браузера */
+    margin: 0;
+    line-height: normal;
 }
 
+/* Цвета для каждой кнопки */
+.btn-edit {
+    background-color: #28a745;
+    color: #fff;
+}
+.btn-edit:hover {
+    background-color: #218838;
+}
+
+.btn-cancel {
+    background-color: #f0ad4e;
+    color: #fff;
+}
+.btn-cancel:hover {
+    background-color: #d9933a;
+}
+
+.btn-delete {
+    background-color: #cc0000;
+    color: #fff;
+}
 .btn-delete:hover {
     background-color: #a30000;
 }

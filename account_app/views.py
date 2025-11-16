@@ -3,6 +3,8 @@ from django.contrib.auth.views import LoginView
 from .forms import UserRegistrationForm
 from django.contrib.auth.decorators import login_required
 from booking_app.models import Room
+from django.core.mail import send_mail
+from django.conf import settings
 
 # регистрация
 def signup_view(request):
@@ -12,7 +14,17 @@ def signup_view(request):
             user = form.save(commit=False)
             user.set_password(form.cleaned_data['password'])
             user.save()
-            return redirect('login')
+
+            # отправка письма пользователю
+            send_mail(
+                subject='Добро пожаловать!',
+                message=f'Здравствуйте, {user.username}! Вы успешно зарегистрировались.',
+                from_email=settings.DEFAULT_FROM_EMAIL,
+                recipient_list=[user.email],
+                fail_silently=True,  # чтобы не упасть, если email не настроен
+            )
+
+            return redirect('account_app:login')
     else:
         form = UserRegistrationForm()
     return render(request, 'registration/signup.html', {'form': form})

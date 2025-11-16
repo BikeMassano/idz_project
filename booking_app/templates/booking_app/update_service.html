@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}Редактировать услугу — HotelBooking{% endblock %}
+
+{% block content %}
+<div class="update-service-container">
+    <h2>Редактировать услугу: {{ service_order.service.name }}</h2>
+    <p>Бронь #{{ service_order.booking.id }}</p>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn-save">Сохранить</button>
+        <a href="{% url 'booking_app:user_booking_services' service_order.booking.id %}" class="btn-cancel">
+            Отмена
+        </a>
+    </form>
+</div>
+{% endblock %}

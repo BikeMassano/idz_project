@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}Услуги брони #{{ booking.id }} — HotelBooking{% endblock %}
+
+{% block content %}
+<div class="profile-container">
+    <h2>Услуги брони #{{ booking.id }}</h2>
+
+    <div class="services-list">
+        {% for service_order in services %}
+            <div class="service-box">
+                <p>{{ service_order.service.name }} — Количество: {{ service_order.quantity }}</p>
+                <form method="post" action="{% url 'booking_app:update_user_service' service_order.id %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="quantity" value="{{ service_order.quantity }}">
+                    <button type="submit">Обновить</button>
+                </form>
+                <form method="post" action="{% url 'booking_app:user_booking_services' booking.id %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="service_id" value="{{ service_order.id }}">
+                    <button type="submit" name="delete_service">Удалить</button>
+                </form>
+            </div>
+        {% empty %}
+            <p>Нет добавленных услуг.</p>
+        {% endfor %}
+    </div>
+
+    <h3>Добавить новую услугу</h3>
+    <form method="post" action="{% url 'booking_app:user_booking_services' booking.id %}">
+        {% csrf_token %}
+        {{ form.service }}
+        {{ form.quantity }}
+        <button type="submit" name="add_service">Добавить</button>
+    </form>
+</div>
+{% endblock %}

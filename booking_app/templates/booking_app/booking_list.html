@@ -32,5 +32,7 @@
     {% else %}
         <p>Пока нет созданных броней.</p>
     {% endif %}
+
+    <a href="{% url 'booking_app:booking_form' %}" class="add-room-btn">Создать новую бронь</a>
 </div>
 {% endblock %}

@@ -37,6 +37,31 @@
                     {% else %}
                         <p class="no-services">Дополнительные услуги не заказаны.</p>
                     {% endif %}
+
+                    <div class="service-buttons">
+                        <a href="{% url 'booking_app:user_booking_services' booking.id %}" class="btn-edit">
+                            Добавить / изменить услуги
+                        </a>
+
+                        {% if booking.status == 'confirmed' %}
+                            <form action="{% url 'booking_app:booking_cancel' booking.id %}" method="post" class="cancel-form">
+                                {% csrf_token %}
+                                <button type="submit" class="btn-cancel">Отменить бронь</button>
+                            </form>
+                        {% endif %}
+                    </div>
+
+                    <div class="review-section">
+                        {% if booking.review %}
+                            <details class="review-details">
+                                <summary>Ваш отзыв</summary>
+                                <p>{{ booking.review.comment }}</p>
+                                <a href="{% url 'booking_app:edit_review' booking.id %}" class="btn-edit-review">Изменить отзыв</a>
+                            </details>
+                        {% else %}
+                            <a href="{% url 'booking_app:add_review' booking.id %}" class="btn-add-review">Написать отзыв</a>
+                        {% endif %}
+                    </div>
                 </div>
             {% endfor %}
         </div>

@@ -3,6 +3,27 @@
 {% block content %}
 <h1>Доступные комнаты</h1>
 
+<form method="get" class="filter-form" style="margin-bottom: 20px;">
+    <label>Вместимость (мин.):</label>
+    <input type="number" name="capacity" value="{{ request.GET.capacity }}">
+
+    <label>Цена от:</label>
+    <input type="number" name="price_min" value="{{ request.GET.price_min }}">
+
+    <label>Цена до:</label>
+    <input type="number" name="price_max" value="{{ request.GET.price_max }}">
+
+    <label>Статус:</label>
+    <select name="status">
+        <option value="">Все</option>
+        <option value="available" {% if request.GET.status == 'available' %}selected{% endif %}>Доступна</option>
+        <option value="booked" {% if request.GET.status == 'booked' %}selected{% endif %}>Забронирована</option>
+        <option value="maintenance" {% if request.GET.status == 'maintenance' %}selected{% endif %}>На обслуживании</option>
+    </select>
+
+    <button type="submit">Фильтровать</button>
+</form>
+
 <div class="rooms-list">
     {% for room in rooms %}
         <div class="room-card">
@@ -10,7 +31,7 @@
             <p>{{ room.description }}</p>
             <p>Вместимость: {{ room.capacity }} мест</p>
             <p>Цена за ночь: {{ room.price_per_night }} ₽</p>
-            <a href="{% url 'booking_app:book_room' %}">Забронировать</a>
+            <a href="{% url 'booking_app:book_room' room.id %}">Забронировать</a>
         </div>
     {% empty %}
         <p>Нет доступных комнат</p>
