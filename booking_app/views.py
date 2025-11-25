@@ -5,7 +5,6 @@ from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
 from django.conf import settings
 from django.contrib import messages
-from datetime import date
 from django.core.exceptions import PermissionDenied
 
 def admin_required(view_func):

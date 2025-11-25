@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.views import LoginView
-from .forms import UserRegistrationForm
+from .forms import UserRegistrationForm, UserUpdateForm
 from django.contrib.auth.decorators import login_required
 from booking_app.models import Room
 from django.core.mail import send_mail
@@ -50,3 +50,17 @@ def profile_view(request):
         })
     else:
         return render(request, 'registration/profile.html', {'user': user})
+    
+@login_required
+def profile_edit_view(request):
+    user = request.user
+
+    if request.method == "POST":
+        form = UserUpdateForm(request.POST, instance=user)
+        if form.is_valid():
+            form.save()
+            return redirect('account_app:profile')
+    else:
+        form = UserUpdateForm(instance=user)
+
+    return render(request, 'registration/profile_edit.html', {'form': form})

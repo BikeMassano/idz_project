@@ -109,5 +109,11 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'idz_project', 'static'),
 ]
 
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
-DEFAULT_FROM_EMAIL = 'noreply@example.com'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.yandex.ru'
+EMAIL_PORT = 465
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = True
+EMAIL_HOST_USER = 'yu.smurov@sibstrin.ru'
+EMAIL_HOST_PASSWORD = 'kamcufhpswjkqixf'
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
